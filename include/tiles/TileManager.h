@@ -1,13 +1,15 @@
 #ifndef TILEMANAGER_H
 #define TILEMANAGER_H
 
+#define MAP_LEN 5
+
 #include <vector>
 #include <string>
-#include "Tile.h"
+#include "tiles/Tile.h"
 
 class TileManager {
 private:
-    std::vector<Tile*> allTiles;  // List of all tiles
+    Tile** matrix = new Tile*[MAP_LEN];
 
 public:
     // Destructor to clean up dynamically allocated tiles

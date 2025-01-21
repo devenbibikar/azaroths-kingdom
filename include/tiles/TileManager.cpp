@@ -1,6 +1,8 @@
 #include "TileManager.h"
 #include <algorithm>  // For std::remove_if
 #include <iostream>
+#include <cassert> 
+
 
 TileManager::~TileManager() {
     // Clean up all dynamically allocated tiles
@@ -12,18 +14,19 @@ TileManager::~TileManager() {
 void TileManager::addTile(Tile* tile) {
     allTiles.push_back(tile);
 }
+ 
+// Remove Tile item at location (r, c) [not implemented]
+// requires that the tile exists
+bool TileManager::removeTile(int r, int c) {
 
-bool TileManager::removeTile(const std::string& tileName) {
-    // Find the tile with the given name and remove it from the list
-    auto it = std::remove_if(allTiles.begin(), allTiles.end(),
-                             [&tileName](Tile* tile) { return tile->getName() == tileName; });
+    assert(allTiles[r][c]); 
+    //allTiles[r][c] = VOID TILE
+}
 
-    if (it != allTiles.end()) {
-        delete *it;          // Clean up the memory for the tile being removed
-        allTiles.erase(it);  // Remove the tile from the list
-        return true;
-    }
-    return false;            // Tile with the given name was not found
+// free a tile at a location
+bool TileManager::freeTile(int r, int c) {
+    assert(allTiles[r][c]);
+    delete(allTiles[r][c]);
 }
 
 Tile* TileManager::getTileByName(const std::string& tileName) const {
