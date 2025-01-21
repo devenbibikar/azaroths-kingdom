@@ -2,13 +2,30 @@
 #include <algorithm>  // For std::remove_if
 #include <iostream>
 #include <cassert> 
+#include <Tile.hpp>
 
+// allocate a 2d array of tiles
+TileManager:TileManager() {
 
-TileManager::~TileManager() {
-    // Clean up all dynamically allocated tiles
-    for (Tile* tile : allTiles) {
-        delete tile;
+    allTiles = new Tile*[MAP_LEN];
+    for (int r = 0; r < MAP_LEN; r++) {
+        allTiles[r] = new Tile*[MAP_LEN];
+        for (int c = 0; c < MAP_LEN; ++j) {
+            allTiles[r][c] = new Tile();
+        }
     }
+
+}
+
+// delete the allocated 2d array
+TileManager::~TileManager() {
+    //Free each sub-array
+    for(int r = 0; r < MAP_LEN; r++) {
+        delete[] allTiles[r];   
+    }
+
+    //Free the array of pointers
+    delete[] allTiles;
 }
 
 void TileManager::addTile(Tile* tile) {

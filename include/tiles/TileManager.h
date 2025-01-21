@@ -5,15 +5,16 @@
 
 #include <vector>
 #include <string>
-#include "tiles/Tile.h"
+#include "tiles/Tile.hpp"
 
 class TileManager {
 private:
-    Tile** matrix = new Tile*[MAP_LEN];
-
+    Tile** allTiles;
+    
 public:
     // Destructor to clean up dynamically allocated tiles
     ~TileManager();
+    TileManager();
 
     // Method to add a new tile to the manager
     void addTile(Tile* tile);
