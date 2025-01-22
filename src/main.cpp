@@ -12,7 +12,6 @@ by Jeffery Myers is marked with CC0 1.0. To view a copy of this license, visit h
 #include "resource_dir.h"	// utility header for SearchAndSetResourceDir
 
 #include "tiles/Tile.hpp"
-#include "tiles/TileManager.h"
 //#include "tiles/hexManager.hpp"
 
 

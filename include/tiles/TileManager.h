@@ -10,7 +10,7 @@
 class TileManager {
 private:
     Tile** allTiles;
-    
+
 public:
     // Destructor to clean up dynamically allocated tiles
     ~TileManager();
@@ -24,7 +24,7 @@ public:
 
     // Getters
     Tile* getTileByName(const std::string& tileName) const;
-    const std::vector<Tile*>& getAllTiles() const;
+    Tile** getAllTiles();
 
     // Utility methods
     std::vector<Tile*> getConnectedTiles(Tile* tile) const;
