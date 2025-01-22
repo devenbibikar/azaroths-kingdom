@@ -1,7 +1,7 @@
 obj/x64/Release/azaroths-kingdom/main.o: ../../src/main.cpp \
  /usr/include/stdc-predef.h ../external/raylib-master/src/raylib.h \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h \
- ../../include/resource_dir.h ../../include/tiles/Tile.h \
+ ../../include/resource_dir.h ../../include/tiles/Tile.hpp \
  /usr/include/c++/13/algorithm /usr/include/c++/13/bits/stl_algobase.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h \
@@ -196,7 +196,7 @@ obj/x64/Release/azaroths-kingdom/main.o: ../../src/main.cpp \
 ../external/raylib-master/src/raylib.h:
 /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h:
 ../../include/resource_dir.h:
-../../include/tiles/Tile.h:
+../../include/tiles/Tile.hpp:
 /usr/include/c++/13/algorithm:
 /usr/include/c++/13/bits/stl_algobase.h:
 /usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h:

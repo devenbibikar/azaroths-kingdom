@@ -1,4 +1,4 @@
-#include "TileManager.h"
+#include "TileManager.hpp"
 #include <algorithm>  // For std::remove_if
 #include <iostream>
 #include <cassert> 
@@ -6,14 +6,7 @@
 #include <vector> 
 
 // allocate a 2d array of tiles
-TileManager:TileManager() {
-    allTiles = new Tile*[MAP_LEN];
-    for (int r = 0; r < MAP_LEN; r++) {
-        allTiles[r] = new Tile*[MAP_LEN];
-        for (int c = 0; c < MAP_LEN; ++j) {
-            allTiles[r][c] = new Tile();
-        }
-    }
+TileManager::TileManager() {
 
 }
 
@@ -21,15 +14,13 @@ TileManager:TileManager() {
 TileManager::~TileManager() {
     //Free each sub-array
     for(int r = 0; r < MAP_LEN; r++) {
-        delete[] allTiles[r];   
+        for (int c = 0; c < MAP_LEN; c++) {
+            delete allTiles[r][c];
+        }
     }
 
     //Free the array of pointers
     delete[] allTiles;
-}
-
-void TileManager::addTile(Tile* tile) {
-    allTiles.push_back(tile);
 }
  
 // Remove Tile item at location (r, c) [not implemented]
