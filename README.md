@@ -1,4 +1,8 @@
-# Raylib-Quickstart
+# What is this project?
+
+This is a civilization-type game that utilizes Raylib as a frontend. 
+
+# Raylib-Quickstart Instructions
 A simple cross platform template for setting up a project with the bleeding edge raylib code.
 Works with C or C++.
 
@@ -87,7 +91,7 @@ If you need to build for a different OpenGL version than the default (OpenGL 3.3
 ## For OpenGLES 3.0
 `--graphics=opengles3`
 
-# License
+# RayLib License
 Copyright (c) 2020-2024 Jeffery Myers
 
 This software is provided "as-is", without any express or implied warranty. In no event 
