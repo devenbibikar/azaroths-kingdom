@@ -50,6 +50,13 @@ Tile* TileManager::getTileByName(const std::string& tileName) const {\
 //     return allTiles;
 // }
 
+bool is_in_range(int x) {
+    if ((x > 0) || (x < MAP_LEN)) {
+        return true;
+    }
+
+    return false;
+}
 
 /* Helper functions to simplify */
 Tile* TileManager::getTopItem(int r, int c) {
@@ -57,7 +64,7 @@ Tile* TileManager::getTopItem(int r, int c) {
     int newRow = r - 1;
 
     // error checking if we're out of bounds
-    if (newRow < 0) {
+    if (!is_in_range(newRow)) {
         return nullptr;
     }
 
@@ -69,7 +76,7 @@ Tile* TileManager::getBottomItem(int r, int c) {
     int newRow = r + 1;
 
     // error checking if we're out of bounds
-    if (newRow >= MAP_LEN) {
+    if (!is_in_range(newRow)) {
         return nullptr;
     }
     
@@ -81,7 +88,7 @@ Tile* TileManager::getRightItem(int r, int c) {
     int newCol = c + 1;
 
     // error checking if we're out of bounds
-    if (newCol >= MAP_LEN) {
+    if (!is_in_range(newCol)) {
         return nullptr;
     }
 
@@ -92,7 +99,7 @@ Tile* TileManager::getLeftItem(int r, int c) {
     int newCol = c - 1;
 
     // error checking if we're out of bounds
-    if (newCol < 0) {
+    if (!is_in_range(newCol)) {
         return nullptr;
     }
 
@@ -102,19 +109,47 @@ Tile* TileManager::getLeftItem(int r, int c) {
 
 Tile* TileManager::getTopRightItem(int r, int c) {
 
+    int newRow = r - 1;
+    int newCol = c + 1;
 
+    if (is_in_range(newCol) && is_in_range(newRow)) {
+        return allTiles[newRow][newCol];
+    }
+
+    return nullptr;
 }
 
 Tile* TileManager::getTopLeftItem(int r, int c) {
+    int newRow = r - 1;
+    int newCol = c - 1;
 
+    if (is_in_range(newCol) && is_in_range(newRow)) {
+        return allTiles[newRow][newCol];
+    }
+
+    return nullptr;
 }
 
 Tile* TileManager::getBottomLeftItem(int r, int c) {
+    int newRow = r + 1;
+    int newCol = c - 1;
 
+    if (is_in_range(newCol) && is_in_range(newRow)) {
+        return allTiles[newRow][newCol];
+    }
+
+    return nullptr;
 }
 
 Tile* TileManager::getBottomRightItem(int r, int c) {
+    int newRow = r + 1;
+    int newCol = c + 1;
 
+    if (is_in_range(newCol) && is_in_range(newRow)) {
+        return allTiles[newRow][newCol];
+    }
+
+    return nullptr;
 }
 
 // helper function to push back
@@ -158,7 +193,6 @@ std::vector<Tile*> TileManager::getConnectedTiles(Tile* tile) {
         push_back_non_null(getLeftItem(tileRow, tileCol), connectedTiles);
         push_back_non_null(getRightItem(tileRow, tileCol), connectedTiles);
     }
-
 
     return connectedTiles;
 }
