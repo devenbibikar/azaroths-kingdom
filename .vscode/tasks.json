@@ -9,7 +9,10 @@
                 "-g",
                 "${file}",
                 "-o",
-                "${fileDirname}/${fileBasenameNoExtension}"
+                "${fileDirname}/${fileBasenameNoExtension}",
+                "-I/usr/include/SDL2",
+                "-D_REENTRANT",
+                "-lSDL2"
             ],
             "options": {
                 "cwd": "${fileDirname}"
@@ -26,3 +29,5 @@
     ],
     "version": "2.0.0"
 }
+
+//g++-13 -g /home/deven/Documents/coding/azaroths-kingdom/ui/main.cpp -o /home/deven/Documents/coding/azaroths-kingdom/ui/main -I/usr/include/SDL2 -D_REENTRANT -lSDL2
