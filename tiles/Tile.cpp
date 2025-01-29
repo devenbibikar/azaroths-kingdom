@@ -3,7 +3,7 @@
 #include <iostream>
 #include <iterator>
 #include <vector>
-
+ 
 #define NUM_CONNECT
 
 class Tile {

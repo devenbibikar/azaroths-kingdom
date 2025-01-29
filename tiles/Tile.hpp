@@ -15,7 +15,7 @@ public:
     // Default Constructor: Initializes connectedTiles to nullptr
     Tile();
 
-    // Static constant for the number of connected tiles
+    // Static constant for the number of connected tiles 
     const static int NUM_CONNECTED = 5;
 
     // Array to hold pointers to connected tiles

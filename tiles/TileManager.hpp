@@ -4,7 +4,7 @@
 
 #include <vector>
 #include <string>
-#include "tiles/Tile.hpp"
+#include "Tile.hpp"
 #include <array>
 
 class TileManager {
