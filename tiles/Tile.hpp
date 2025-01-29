@@ -7,6 +7,13 @@
 #include <iterator>   // If needed, for iterators
 #include <vector>     // If needed, for STL containers (e.g., std::vector)
 
+class TileUI {
+    public:
+        TileUI();
+        ~TileUI();
+};
+
+
 class Tile {
 public:
     // Destructor
