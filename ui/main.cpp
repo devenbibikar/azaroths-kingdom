@@ -1,49 +1,58 @@
-/* This file exists to test UI components 
-// Source: https://en.wikibooks.org/wiki/SDL_(Simple_DirectMedia_Layer)/Basics/Creating_a_window */
+// main.cpp
+#include <SDL2/SDL.h>
+#include "HexGrid.hpp"
 
-#include <SDL2/SDL.h> /* macOS- and GNU/Linux-specific */
+const int SCREEN_WIDTH = 1920;
+const int SCREEN_HEIGHT = 1080;
 
-/* Sets constants */
-#define WIDTH 800
-#define HEIGHT 600
-#define DELAY 3000
-
-int main() {
-
-    /* Initialises data */
-    SDL_Window *window = NULL;
-    
-    /*
-    * Initialises the SDL video subsystem (as well as the events subsystem).
-    * Returns 0 on success or a negative error code on failure using SDL_GetError().
-    */
-    if (SDL_Init(SDL_INIT_VIDEO) != 0) {
-        fprintf(stderr, "SDL failed to initialise: %s\n", SDL_GetError());
-        return 1;
+int main(int argc, char* argv[]) {
+    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+        return -1;
     }
 
-    /* Creates a SDL window */
-    window = SDL_CreateWindow("SDL Example", /* Title of the SDL window */
-                    SDL_WINDOWPOS_UNDEFINED, /* Position x of the window */
-                    SDL_WINDOWPOS_UNDEFINED, /* Position y of the window */
-                    WIDTH, /* Width of the window in pixels */
-                    HEIGHT, /* Height of the window in pixels */
-                    0); /* Additional flag(s) */
+    SDL_Window* window = SDL_CreateWindow("Hex Grid", 
+                                        SDL_WINDOWPOS_CENTERED, 
+                                        SDL_WINDOWPOS_CENTERED, 
+                                        SCREEN_WIDTH, 
+                                        SCREEN_HEIGHT, 
+                                        SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE); /* Additional Flags */
 
-    /* Checks if window has been created; if not, exits program */
-    if (window == NULL) {
-        fprintf(stderr, "SDL window failed to initialise: %s\n", SDL_GetError());
-        return 1;
+    /* Test that the window actually worked */
+    if (!window) {
+        SDL_Quit();
+        return -1;
     }
 
-    /* Pauses all SDL subsystems for a variable amount of milliseconds */
-    SDL_Delay(DELAY);
+    /* Generate renderer */
+    SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    if (!renderer) {
+        SDL_DestroyWindow(window);
+        SDL_Quit();
+        return -1;
+    }
 
-    /* Frees memory */
+    /* Generate HexGrid */
+    HexGrid hexGrid(10, 10, 30.0f);
+
+    bool running = true;
+    SDL_Event event;
+    while (running) {
+        while (SDL_PollEvent(&event)) {
+            if (event.type == SDL_QUIT) {
+                running = false;
+            }
+        }
+
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+        SDL_RenderClear(renderer);
+
+        hexGrid.render(renderer);
+
+        SDL_RenderPresent(renderer);
+    }
+
+    SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
-    
-    /* Shuts down all SDL subsystems */
-    SDL_Quit(); 
-    
+    SDL_Quit();
     return 0;
 }
