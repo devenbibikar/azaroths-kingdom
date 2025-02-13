@@ -10,11 +10,11 @@
 // allocate a 2d array of tiles
 TileManager::TileManager() {
     // Resize the outer vector to have `rows` elements
-    allTiles.resize(MAP_LEN);
+    allTiles.resize(ROWS);
 
     // Resize each inner vector to have `cols` elements and initialize to nullptr
-    for (size_t i = 0; i < MAP_LEN; ++i) {
-        allTiles[i].resize(MAP_LEN, nullptr);
+    for (size_t i = 0; i < ROWS; ++i) {
+        allTiles[i].resize(COLS, nullptr);
     }
 }
 
@@ -57,8 +57,16 @@ Tile* TileManager::getTileByName(const std::string& tileName) const {\
 //     return allTiles;
 // }
 
-bool is_in_range(int x) {
-    if ((x > 0) || (x < MAP_LEN)) {
+bool row_in_range(int x) {
+    if ((x > 0) || (x < ROWS)) {
+        return true;
+    }
+
+    return false;
+}
+
+bool col_in_range(int x) {
+    if ((x > 0) || (x < COLS)) {
         return true;
     }
 
@@ -71,7 +79,7 @@ Tile* TileManager::getTopItem(int r, int c) {
     int newRow = r - 1;
 
     // error checking if we're out of bounds
-    if (!is_in_range(newRow)) {
+    if (!row_in_range(newRow)) {
         return nullptr;
     }
 
@@ -83,7 +91,7 @@ Tile* TileManager::getBottomItem(int r, int c) {
     int newRow = r + 1;
 
     // error checking if we're out of bounds
-    if (!is_in_range(newRow)) {
+    if (!row_in_range(newRow)) {
         return nullptr;
     }
     
@@ -95,7 +103,7 @@ Tile* TileManager::getRightItem(int r, int c) {
     int newCol = c + 1;
 
     // error checking if we're out of bounds
-    if (!is_in_range(newCol)) {
+    if (!col_in_range(newCol)) {
         return nullptr;
     }
 
@@ -106,7 +114,7 @@ Tile* TileManager::getLeftItem(int r, int c) {
     int newCol = c - 1;
 
     // error checking if we're out of bounds
-    if (!is_in_range(newCol)) {
+    if (!col_in_range(newCol)) {
         return nullptr;
     }
 
@@ -119,7 +127,7 @@ Tile* TileManager::getTopRightItem(int r, int c) {
     int newRow = r - 1;
     int newCol = c + 1;
 
-    if (is_in_range(newCol) && is_in_range(newRow)) {
+    if (col_in_range(newCol) && row_in_range(newRow)) {
         return allTiles[newRow][newCol];
     }
 
@@ -130,7 +138,7 @@ Tile* TileManager::getTopLeftItem(int r, int c) {
     int newRow = r - 1;
     int newCol = c - 1;
 
-    if (is_in_range(newCol) && is_in_range(newRow)) {
+    if (col_in_range(newCol) && row_in_range(newRow)) {
         return allTiles[newRow][newCol];
     }
 
@@ -141,7 +149,7 @@ Tile* TileManager::getBottomLeftItem(int r, int c) {
     int newRow = r + 1;
     int newCol = c - 1;
 
-    if (is_in_range(newCol) && is_in_range(newRow)) {
+    if (col_in_range(newCol) && row_in_range(newRow)) {
         return allTiles[newRow][newCol];
     }
 
@@ -152,7 +160,7 @@ Tile* TileManager::getBottomRightItem(int r, int c) {
     int newRow = r + 1;
     int newCol = c + 1;
 
-    if (is_in_range(newCol) && is_in_range(newRow)) {
+    if (col_in_range(newCol) && row_in_range(newRow)) {
         return allTiles[newRow][newCol];
     }
 

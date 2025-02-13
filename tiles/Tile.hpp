@@ -21,7 +21,7 @@ class Tile {
         const std::string& getName();
 
         /* UI Information */
-        std::string color; 
+        int color[3];
         float x;
         float y;
 

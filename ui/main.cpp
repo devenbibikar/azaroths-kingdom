@@ -43,18 +43,19 @@ int main(int argc, char* argv[]) {
         if (event.type == SDL_QUIT) {
             running = false;
         }
-
-        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+        
+        // set the main background color & backdrop
+        SDL_SetRenderDrawColor(renderer, BLACK[0], BLACK[1], BLACK[2], 255);
         SDL_RenderClear(renderer);
 
-        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-
+        // render hexGrid
         hexGrid.render(renderer);
         
-
+        // update screen with new changes
         SDL_RenderPresent(renderer);
     }
 
+    // if program has finished running, gracefully exit.
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();

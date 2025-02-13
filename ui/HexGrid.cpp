@@ -31,7 +31,7 @@ bool HexGrid::isEven(int x) {
 // (Generated Code)
 // Draw a single flat-topped hexagon centered at (x, y).
 // For a flat-topped hexagon, we use angles of 0°, 60°, 120°, …, 300°.
-void HexGrid::drawHexagon(SDL_Renderer* renderer, float x, float y) {
+void HexGrid::drawHexagon(SDL_Renderer* renderer, float x, float y, const int color[3]) {
     const int NUM_POINTS = 6;
     SDL_Point points[NUM_POINTS + 1]; // +1 to close the polygon
 
@@ -66,6 +66,7 @@ void HexGrid::render(SDL_Renderer* renderer) {
 
     for (int c = 0; c < cols; c++) {
 
+        // base case modifier
         if (c > 0) {
             x_off = x_off + x_modifier;
         }
@@ -75,13 +76,13 @@ void HexGrid::render(SDL_Renderer* renderer) {
             for (int r = 0; r < rows; r++) {
                 y = startingCoords.y + (r * cRadius * 2);
                 x = startingCoords.x * x_off;
-                drawHexagon(renderer, x, y);
+                drawHexagon(renderer, x, y, WHITE);
             }
         } else { // generate the down shifted column
             for (int r = 0; r < rows - 1; r++) {
                 y = (startingCoords.y * y_modifier) + (r * cRadius * 2);
                 x = startingCoords.x  * x_off;
-                drawHexagon(renderer, x, y);
+                drawHexagon(renderer, x, y, WHITE);
             }
         }
         
