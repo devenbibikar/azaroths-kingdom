@@ -6,18 +6,25 @@
 #include <vector>
 #include <cmath>
 
-struct Hexagon {
-    float x, y; // Center position
+struct Coords {
+    int x;
+    int y;
 };
 
 class HexGrid {
 public:
-    HexGrid(int rows, int cols, float hexSize);
+    HexGrid();
     void render(SDL_Renderer* renderer);
+    void drawHexagon(SDL_Renderer* renderer, float x, float y);
 private:
-    std::vector<Hexagon> hexagons;
-    float hexSize;
-    void generateGrid(int rows, int cols);
+
+    float getHeight(float cRadius);
+    float getApothem(float cRadius);
+
+
+    float cRadius;
+    Coords startingCoords; 
+    
 };
 
 #endif // HEXGRID_HPP

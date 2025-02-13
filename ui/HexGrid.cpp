@@ -1,35 +1,70 @@
 // HexGrid.cpp
 #include "HexGrid.hpp"
 #include <cmath>
+//#include "../tiles/TileManager.hpp"
 
-HexGrid::HexGrid(int rows, int cols, float hexSize) : hexSize(hexSize) {
-    generateGrid(rows, cols);
+HexGrid::HexGrid() {
+    cRadius = 100;
+    startingCoords.x = 100;
+    startingCoords.y = 100;
+}   
+
+/* Calculate the height of the entire hexagon (diameter from one side to another) */
+float HexGrid::getHeight(float cRadius) {
+    return getApothem(cRadius) * 2;
 }
 
-void HexGrid::generateGrid(int rows, int cols) {
-    float width = hexSize * 2;
-    float height = sqrt(3) * hexSize;
-    
-    for (int row = 0; row < rows; ++row) {
-        for (int col = 0; col < cols; ++col) {
-            float x = col * width * 0.75f;
-            float y = row * height + (col % 2) * (height / 2);
-            hexagons.push_back({x, y});
-        }
+float HexGrid::getApothem(float cRadius) {
+    return cRadius * cos(30);
+}
+
+// Draw a single flat-topped hexagon centered at (x, y).
+// For a flat-topped hexagon, we use angles of 0°, 60°, 120°, …, 300°.
+void HexGrid::drawHexagon(SDL_Renderer* renderer, float x, float y) {
+    const int NUM_POINTS = 6;
+    SDL_Point points[NUM_POINTS + 1]; // +1 to close the polygon
+
+    // For a flat-topped hexagon, the vertices are computed at:
+    // angle = 0, 60, 120, 180, 240, and 300 degrees (converted to radians)
+    for (int i = 0; i < NUM_POINTS; ++i) {
+        float angle = M_PI / 3.0f * i; // M_PI/3 = 60° in radians
+        points[i].x = static_cast<int>(x + cRadius * cos(angle));
+        points[i].y = static_cast<int>(y + cRadius * sin(angle));
     }
+    // Close the hexagon by repeating the first point.
+    points[NUM_POINTS] = points[0];
+
+    // Set the drawing color (e.g., white) and draw the hexagon outline.
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+    SDL_RenderDrawLines(renderer, points, NUM_POINTS + 1);
 }
 
+// Render a grid of flat-topped hexagons/
 void HexGrid::render(SDL_Renderer* renderer) {
-    for (const auto& hex : hexagons) {
-        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-        for (int i = 0; i < 6; ++i) {
-            float angle1 = M_PI / 3 * i;
-            float angle2 = M_PI / 3 * (i + 1);
-            int x1 = static_cast<int>(hex.x + hexSize * cos(angle1));
-            int y1 = static_cast<int>(hex.y + hexSize * sin(angle1));
-            int x2 = static_cast<int>(hex.x + hexSize * cos(angle2));
-            int y2 = static_cast<int>(hex.y + hexSize * sin(angle2));
-            SDL_RenderDrawLine(renderer, x1, y1, x2, y2);
+    const int cols = 5; // number of columns in the grid
+    const int rows = 5; // number of rows in the grid
+
+    int x;
+    int y; 
+
+    float x_off = 2.75;
+
+    for (int c = 0; c < cols; c++) {
+        // generate the up shifted column
+        for (int r = 0; r < rows; r++) {
+            y = startingCoords.y + (r * cRadius * 2);
+            x = startingCoords.x;
+            drawHexagon(renderer, x, y);
+        }
+
+        // generate the down shifted column
+        for (int r = 0; r < rows; r++) {
+            y = (startingCoords.y * 2) + (r * cRadius * 2);
+            x = startingCoords.x  * x_off;
+            drawHexagon(renderer, x, y);
         }
     }
+    
+
+    
 }

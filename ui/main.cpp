@@ -32,21 +32,25 @@ int main(int argc, char* argv[]) {
     }
 
     /* Generate HexGrid */
-    HexGrid hexGrid(10, 10, 30.0f);
+    HexGrid hexGrid;
 
     bool running = true;
     SDL_Event event;
     while (running) {
-        while (SDL_PollEvent(&event)) {
-            if (event.type == SDL_QUIT) {
-                running = false;
-            }
+
+        // ensure program is running & has not quit. 
+        SDL_PollEvent(&event);
+        if (event.type == SDL_QUIT) {
+            running = false;
         }
 
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderClear(renderer);
 
+        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+
         hexGrid.render(renderer);
+        
 
         SDL_RenderPresent(renderer);
     }
