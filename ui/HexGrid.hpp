@@ -18,8 +18,10 @@ public:
     void drawHexagon(SDL_Renderer* renderer, float x, float y);
 private:
 
+    /* Helper functions to calculate hexagon */
     float getHeight(float cRadius);
     float getApothem(float cRadius);
+    bool isEven(int x);
 
 
     float cRadius;

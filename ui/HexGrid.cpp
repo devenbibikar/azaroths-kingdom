@@ -1,10 +1,14 @@
 // HexGrid.cpp
 #include "HexGrid.hpp"
 #include <cmath>
+#include "../tiles/TileManager.hpp"
 //#include "../tiles/TileManager.hpp"
 
+// General Purpose libraries
+#include <cmath>
+
 HexGrid::HexGrid() {
-    cRadius = 100;
+    cRadius = 50;
     startingCoords.x = 100;
     startingCoords.y = 100;
 }   
@@ -14,10 +18,17 @@ float HexGrid::getHeight(float cRadius) {
     return getApothem(cRadius) * 2;
 }
 
+/* Distance between the radius and a vertex */
 float HexGrid::getApothem(float cRadius) {
     return cRadius * cos(30);
 }
 
+/* Check if value is even */
+bool HexGrid::isEven(int x) {
+    return (x % 2 == 0);
+}
+
+// (Generated Code)
 // Draw a single flat-topped hexagon centered at (x, y).
 // For a flat-topped hexagon, we use angles of 0°, 60°, 120°, …, 300°.
 void HexGrid::drawHexagon(SDL_Renderer* renderer, float x, float y) {
@@ -41,30 +52,38 @@ void HexGrid::drawHexagon(SDL_Renderer* renderer, float x, float y) {
 
 // Render a grid of flat-topped hexagons/
 void HexGrid::render(SDL_Renderer* renderer) {
-    const int cols = 5; // number of columns in the grid
-    const int rows = 5; // number of rows in the grid
+    const int cols = COLS; // number of columns in the grid
+    const int rows = ROWS; // number of rows in the grid
 
     int x;
     int y; 
 
-    float x_off = 2.75;
+    const float x_modifier = 1.75 * (cRadius / 100);
+    const float y_modifier = 2 - (1 - cRadius / 100);
+    float x_off = 1;
+
+    //std::vector<float> temp_test {1, 2.75, 4.5, 6.25, 8};
 
     for (int c = 0; c < cols; c++) {
+
+        if (c > 0) {
+            x_off = x_off + x_modifier;
+        }
+        
         // generate the up shifted column
-        for (int r = 0; r < rows; r++) {
-            y = startingCoords.y + (r * cRadius * 2);
-            x = startingCoords.x;
-            drawHexagon(renderer, x, y);
+        if (isEven(c)) { 
+            for (int r = 0; r < rows; r++) {
+                y = startingCoords.y + (r * cRadius * 2);
+                x = startingCoords.x * x_off;
+                drawHexagon(renderer, x, y);
+            }
+        } else { // generate the down shifted column
+            for (int r = 0; r < rows - 1; r++) {
+                y = (startingCoords.y * y_modifier) + (r * cRadius * 2);
+                x = startingCoords.x  * x_off;
+                drawHexagon(renderer, x, y);
+            }
         }
-
-        // generate the down shifted column
-        for (int r = 0; r < rows; r++) {
-            y = (startingCoords.y * 2) + (r * cRadius * 2);
-            x = startingCoords.x  * x_off;
-            drawHexagon(renderer, x, y);
-        }
+        
     }
-    
-
-    
 }

@@ -3,27 +3,18 @@
 #include <iostream>
 #include <iterator>
 #include <vector>
- 
-#define NUM_CONNECT
+#include "Tile.hpp"
 
-class Tile {
+Tile::~Tile() {
+    // destroy something?
+}
 
-    public:     
-        ~Tile();
-        Tile(std::string name) {
-            std::fill_n(connectedTiles, NUM_CONNECTED, nullptr);
-            this->name = name;
-        };
-
-        const static int NUM_CONNECTED = 5;
-        Tile* connectedTiles[NUM_CONNECTED];
-        std::string name;
-
-        // return string name of object
-        const std::string& Tile::getName();
+Tile::Tile(std::string name) {
+    this->name = name;
 };
-
 
 const std::string& Tile::getName() {
     return name;
 }
+
+

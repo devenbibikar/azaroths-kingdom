@@ -1,15 +1,16 @@
 #define TILEMANAGER_H
 
-#define MAP_LEN 5
+#define ROWS 10
+#define COLS 20
 
 #include <vector>
 #include <string>
 #include "Tile.hpp"
-#include <array>
+#include <vector>
 
 class TileManager {
 private:
-    Tile* allTiles[MAP_LEN][MAP_LEN];
+    std::vector<std::vector<Tile*>> allTiles;
 
 public:
     // Destructor to clean up dynamically allocated tiles
@@ -20,7 +21,7 @@ public:
     bool removeTile(int r, int c);
 
     // Getters
-    Tile* getTileByName(const std::string& tileName) const;
+    Tile *getTileByName(const std::string& tileName) const;
     Tile *getTopItem(int r, int c);
     Tile *getBottomItem(int r, int c);
     Tile *getRightItem(int r, int c);
@@ -29,5 +30,5 @@ public:
     Tile *getTopLeftItem(int r, int c);
     Tile *getBottomLeftItem(int r, int c);
     Tile *getBottomRightItem(int r, int c);
-    std::vector<Tile *> TileManager::getConnectedTiles(Tile *tile);
+    std::vector<Tile *> getConnectedTiles(Tile *tile);
 };

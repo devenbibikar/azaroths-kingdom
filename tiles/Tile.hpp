@@ -1,37 +1,36 @@
 #ifndef TILE_H
 #define TILE_H
 
+#define NUM_CONNECTED 6
+
 #include <algorithm>  // For std::fill_n
 #include <complex>    // If needed, depending on your use case
 #include <iostream>   // If needed for debugging or printing
 #include <iterator>   // If needed, for iterators
 #include <vector>     // If needed, for STL containers (e.g., std::vector)
 
-class TileUI {
-    public:
-        TileUI();
-        ~TileUI();
-};
-
-
 class Tile {
-public:
-    // Destructor
-    ~Tile();
+    public:
+        // Destructor
+        ~Tile();
 
-    // Default Constructor: Initializes connectedTiles to nullptr
-    Tile();
+        // Default Constructor: Initializes connectedTiles to nullptr
+        Tile(std::string name);
 
-    // Static constant for the number of connected tiles 
-    const static int NUM_CONNECTED = 5;
+        /* Tile Functions */
+        const std::string& getName();
 
-    // Array to hold pointers to connected tiles
-    Tile* connectedTiles[NUM_CONNECTED];
-    
-    const std::string& getName();
+        /* UI Information */
+        std::string color; 
+        float x;
+        float y;
 
-private:
-    // You can add any private members or helper methods here
+        /* Public Tile Information */
+        
+
+    private:
+        // You can add any private members or helper methods here
+        std::string name;
 };
 
 #endif

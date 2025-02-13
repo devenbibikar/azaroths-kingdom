@@ -9,20 +9,26 @@
 
 // allocate a 2d array of tiles
 TileManager::TileManager() {
+    // Resize the outer vector to have `rows` elements
+    allTiles.resize(MAP_LEN);
 
+    // Resize each inner vector to have `cols` elements and initialize to nullptr
+    for (size_t i = 0; i < MAP_LEN; ++i) {
+        allTiles[i].resize(MAP_LEN, nullptr);
+    }
 }
 
 // delete the allocated 2d array
 TileManager::~TileManager() {
-    //Free each sub-array
-    for(int r = 0; r < MAP_LEN; r++) {
-        for (int c = 0; c < MAP_LEN; c++) {
-            delete allTiles[r][c];
+
+    // delete each individual tile
+    for (size_t i = 0; i < allTiles.size(); ++i) {
+        for (size_t j = 0; j < allTiles[i].size(); j++) {
+            delete allTiles[i][j];      // Deallocate each Tile* if dynamically allocated
+            allTiles[i][j] = nullptr;   // Avoid dangling pointers
         }
     }
-
-    //Free the array of pointers
-    delete[] allTiles;
+    allTiles.clear(); // Clear the vector
 }
  
 // Remove Tile item at location (r, c) [not implemented]
@@ -35,8 +41,9 @@ bool TileManager::removeTile(int r, int c) {
 
 Tile* TileManager::getTileByName(const std::string& tileName) const {\
 
-    for(int r = 0; r < MAP_LEN; r++) {
-        for (int c = 0; c < MAP_LEN; c++) {
+    // dig for it
+    for(int r = 0; r < allTiles.size(); r++) {
+        for (int c = 0; c < allTiles[r].size(); c++) {
             if (allTiles[r][c]->getName() == tileName) {
                 return allTiles[r][c];
             }
