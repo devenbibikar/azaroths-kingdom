@@ -8,6 +8,7 @@
 #include <iostream>   // If needed for debugging or printing
 #include <iterator>   // If needed, for iterators
 #include <vector>     // If needed, for STL containers (e.g., std::vector)
+#include "Colors.hpp"
 
 class Tile {
     public:
@@ -15,13 +16,13 @@ class Tile {
         ~Tile();
 
         // Default Constructor: Initializes connectedTiles to nullptr
-        Tile(std::string name);
+        Tile(std::string name, const Color color);
 
         /* Tile Functions */
         const std::string& getName();
 
         /* UI Information */
-        int color[3];
+        Color color;
         float x;
         float y;
 

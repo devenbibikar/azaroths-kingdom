@@ -1,16 +1,14 @@
 // HexGrid.cpp
 #include "HexGrid.hpp"
 #include <cmath>
-#include "../tiles/TileManager.hpp"
-//#include "../tiles/TileManager.hpp"
 
-// General Purpose libraries
-#include <cmath>
 
-HexGrid::HexGrid() {
+HexGrid::HexGrid(TileManager* tm) {
     cRadius = 50;
     startingCoords.x = 100;
     startingCoords.y = 100;
+
+    tileManager = tm;
 }   
 
 /* Calculate the height of the entire hexagon (diameter from one side to another) */
@@ -28,10 +26,14 @@ bool HexGrid::isEven(int x) {
     return (x % 2 == 0);
 }
 
+void HexGrid::setColor(SDL_Renderer* renderer, const Color color) {
+    SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
+}
+
 // (Generated Code)
 // Draw a single flat-topped hexagon centered at (x, y).
 // For a flat-topped hexagon, we use angles of 0°, 60°, 120°, …, 300°.
-void HexGrid::drawHexagon(SDL_Renderer* renderer, float x, float y, const int color[3]) {
+void HexGrid::drawHexagon(SDL_Renderer* renderer, float x, float y, const Color color) {
     const int NUM_POINTS = 6;
     SDL_Point points[NUM_POINTS + 1]; // +1 to close the polygon
 
@@ -46,7 +48,7 @@ void HexGrid::drawHexagon(SDL_Renderer* renderer, float x, float y, const int co
     points[NUM_POINTS] = points[0];
 
     // Set the drawing color (e.g., white) and draw the hexagon outline.
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+    setColor(renderer, color);
     SDL_RenderDrawLines(renderer, points, NUM_POINTS + 1);
 }
 

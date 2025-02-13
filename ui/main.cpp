@@ -32,7 +32,8 @@ int main(int argc, char* argv[]) {
     }
 
     /* Generate HexGrid */
-    HexGrid hexGrid;
+    TileManager tm;
+    HexGrid hexGrid(&tm);
 
     bool running = true;
     SDL_Event event;
@@ -45,7 +46,7 @@ int main(int argc, char* argv[]) {
         }
         
         // set the main background color & backdrop
-        SDL_SetRenderDrawColor(renderer, BLACK[0], BLACK[1], BLACK[2], 255);
+        hexGrid.setColor(renderer, BLACK);
         SDL_RenderClear(renderer);
 
         // render hexGrid

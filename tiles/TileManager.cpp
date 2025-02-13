@@ -22,7 +22,7 @@ TileManager::TileManager() {
 TileManager::~TileManager() {
 
     // delete each individual tile
-    for (size_t i = 0; i < allTiles.size(); ++i) {
+    for (size_t i = 0; i < allTiles.size(); i++) {
         for (size_t j = 0; j < allTiles[i].size(); j++) {
             delete allTiles[i][j];      // Deallocate each Tile* if dynamically allocated
             allTiles[i][j] = nullptr;   // Avoid dangling pointers
@@ -37,6 +37,8 @@ bool TileManager::removeTile(int r, int c) {
 
     assert(allTiles[r][c]); 
     //allTiles[r][c] = VOID TILE
+
+    return false;
 }
 
 Tile* TileManager::getTileByName(const std::string& tileName) const {\
@@ -210,4 +212,14 @@ std::vector<Tile*> TileManager::getConnectedTiles(Tile* tile) {
     }
 
     return connectedTiles;
+}
+
+/* Assumes an existing array has been constructed, tries to generate random tiles for each item. */
+void TileManager::generateRandomGrid() {
+
+    // for (int r = 0; r < ROWS; r++) {
+    //     for (int c = 0; c < COLS; c++) {
+    //         allTiles[r][c] = new Tile("Test Tile", BLACK);
+    //     }
+    // }
 }

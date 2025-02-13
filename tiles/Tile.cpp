@@ -9,8 +9,9 @@ Tile::~Tile() {
     // destroy something?
 }
 
-Tile::Tile(std::string name) {
+Tile::Tile(std::string name, const Color color) {
     this->name = name;
+    this->color = color;
 };
 
 const std::string& Tile::getName() {
