@@ -19,3 +19,6 @@ const std::string& Tile::getName() {
 }
 
 
+Color Tile::getColor() {
+    return this->color;
+}

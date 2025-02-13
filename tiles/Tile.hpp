@@ -27,6 +27,7 @@ class Tile {
         float y;
 
         /* Public Tile Information */
+        Color getColor();
         
 
     private:

@@ -5,6 +5,7 @@
 #include "Tile.hpp"
 #include <vector> 
 #include <functional>
+#include <cstdlib>
 
 
 // allocate a 2d array of tiles
@@ -217,9 +218,34 @@ std::vector<Tile*> TileManager::getConnectedTiles(Tile* tile) {
 /* Assumes an existing array has been constructed, tries to generate random tiles for each item. */
 void TileManager::generateRandomGrid() {
 
-    // for (int r = 0; r < ROWS; r++) {
-    //     for (int c = 0; c < COLS; c++) {
-    //         allTiles[r][c] = new Tile("Test Tile", BLACK);
-    //     }
-    // }
+    srand ( time(NULL) );
+
+    for (int r = 0; r < ROWS; r++) {
+        for (int c = 0; c < COLS; c++) {
+
+           float x = rand() % 100;
+
+            if (x >= 75) {
+                allTiles[r][c] = new Tile("Green Tile", YELLOW);
+            }
+            else if (x >= 25) {
+                allTiles[r][c] = new Tile("Green Tile", GREEN);
+            }
+            else {
+                allTiles[r][c] = new Tile("White Tile", BLUE);
+            }
+            
+        }
+    }
+}
+
+Tile* TileManager::getTile(int r, int c) {
+
+    assert(r >= 0);
+    assert(r < ROWS);
+    assert(c >= 0);
+    assert(c < COLS);
+
+    return allTiles[r][c];
+
 }

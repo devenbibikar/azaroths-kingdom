@@ -19,6 +19,7 @@ class TileManager {
         bool removeTile(int r, int c);
 
         // Getters
+        Tile *getTile(int r, int c);
         Tile *getTileByName(const std::string& tileName) const;
         Tile *getTopItem(int r, int c);
         Tile *getBottomItem(int r, int c);

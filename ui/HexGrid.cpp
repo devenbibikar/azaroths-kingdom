@@ -8,6 +8,7 @@ HexGrid::HexGrid(TileManager* tm) {
     startingCoords.x = 100;
     startingCoords.y = 100;
 
+    tm->generateRandomGrid();
     tileManager = tm;
 }   
 
@@ -67,7 +68,7 @@ void HexGrid::render(SDL_Renderer* renderer) {
     //std::vector<float> temp_test {1, 2.75, 4.5, 6.25, 8};
 
     for (int c = 0; c < cols; c++) {
-
+        
         // base case modifier
         if (c > 0) {
             x_off = x_off + x_modifier;
@@ -76,15 +77,24 @@ void HexGrid::render(SDL_Renderer* renderer) {
         // generate the up shifted column
         if (isEven(c)) { 
             for (int r = 0; r < rows; r++) {
+
+                // Get Tile information
+                Color tileColor = tileManager->getTile(r, c)->getColor();
+
+
                 y = startingCoords.y + (r * cRadius * 2);
                 x = startingCoords.x * x_off;
-                drawHexagon(renderer, x, y, WHITE);
+                drawHexagon(renderer, x, y, tileColor);
             }
         } else { // generate the down shifted column
             for (int r = 0; r < rows - 1; r++) {
+
+                // Get Tile information
+                Color tileColor = tileManager->getTile(r, c)->getColor();
+
                 y = (startingCoords.y * y_modifier) + (r * cRadius * 2);
                 x = startingCoords.x  * x_off;
-                drawHexagon(renderer, x, y, WHITE);
+                drawHexagon(renderer, x, y, tileColor);
             }
         }
         
