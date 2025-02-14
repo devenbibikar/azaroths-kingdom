@@ -1,10 +1,9 @@
-#define ROWS 10
-#define COLS 20
+#define ROWS 5
+#define COLS 6
 
 #include <vector>
 #include <string>
 #include "Tile.hpp"
-#include <vector>
 
 class TileManager {
     private:

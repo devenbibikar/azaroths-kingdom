@@ -8,6 +8,12 @@
 #include <vector>     // If needed, for STL containers (e.g., std::vector)
 #include "Colors.hpp"
 
+struct Coords {
+    int x;
+    int y;
+};
+
+
 class Tile {
     public:
         // Destructor
@@ -31,4 +37,5 @@ class Tile {
     private:
         // You can add any private members or helper methods here
         std::string name;
+        Coords coords;
 };

@@ -65,7 +65,6 @@ void HexGrid::render(SDL_Renderer* renderer) {
     const float y_modifier = 2 - (1 - cRadius / 100);
     float x_off = 1;
 
-
     for (int c = 0; c < cols; c++) {
         
         // base case modifier
@@ -86,7 +85,7 @@ void HexGrid::render(SDL_Renderer* renderer) {
                 drawHexagon(renderer, x, y, tileColor);
             }
         } else { // generate the down shifted column
-            for (int r = 0; r < rows - 1; r++) {
+            for (int r = 0; r < rows; r++) {
 
                 // Get Tile information
                 Color tileColor = tileManager->getTile(r, c)->getColor();

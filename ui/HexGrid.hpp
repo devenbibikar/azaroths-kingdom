@@ -3,11 +3,6 @@
 #include <cmath>
 #include "../tiles/TileManager.hpp"
 
-struct Coords {
-    int x;
-    int y;
-};
-
 class HexGrid {
 public:
     HexGrid(TileManager* tm);
