@@ -32,6 +32,11 @@ class Tile {
 
         /* Public Tile Information */
         Color getColor();
+        Coords getCoords();
+
+        /* Public Setters */
+        void setCoords(Coords newCoords);
+        void setColor(Color color);
         
 
     private:

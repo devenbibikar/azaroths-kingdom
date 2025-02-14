@@ -7,8 +7,11 @@ class HexGrid {
 public:
     HexGrid(TileManager* tm);
     void render(SDL_Renderer* renderer);
-    void drawHexagon(SDL_Renderer* renderer, float x, float y, const Color color);
+    void drawHexagon(SDL_Renderer* renderer, Coords tileCoords, const Color color);
     void setColor(SDL_Renderer* renderer, const Color color);
+    void updateDisplayedTileColor(SDL_Renderer* renderer, Tile* tile);
+    void rippleEffect(SDL_Renderer* renderer, Tile* tile);
+
 private:
 
     /* Helper functions to calculate hexagon */

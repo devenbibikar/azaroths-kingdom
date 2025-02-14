@@ -1,6 +1,9 @@
 // main.cpp
 #include <SDL2/SDL.h>
 #include "HexGrid.hpp"
+#include <memory>
+#include <iostream>
+#include <memory>
 
 const int SCREEN_WIDTH = 1920;
 const int SCREEN_HEIGHT = 1080;
@@ -37,6 +40,16 @@ int main(int argc, char* argv[]) {
 
     bool running = true;
     SDL_Event event;
+
+    /* render it one time */
+
+    // render hexGrid
+    hexGrid.render(renderer);
+    
+    // update screen with new changes
+    SDL_RenderPresent(renderer);
+
+    // run infinitely to check for events
     while (running) {
 
         // ensure program is running & has not quit. 
@@ -44,16 +57,16 @@ int main(int argc, char* argv[]) {
         if (event.type == SDL_QUIT) {
             running = false;
         }
-        
-        // set the main background color & backdrop
-        hexGrid.setColor(renderer, BLACK);
-        SDL_RenderClear(renderer);
 
-        // render hexGrid
-        hexGrid.render(renderer);
-        
-        // update screen with new changes
-        SDL_RenderPresent(renderer);
+        if (event.type == SDL_KEYDOWN) {
+            hexGrid.rippleEffect(renderer, tm.getTile(0, 0));
+        }
+
+        if (event.type == SDL_KEYUP) {
+
+            tm.getTile(0, 0)->setColor(GREEN);
+            hexGrid.render(renderer);
+        }
     }
 
     // if program has finished running, gracefully exit.

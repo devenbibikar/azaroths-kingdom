@@ -22,3 +22,16 @@ const std::string& Tile::getName() {
 Color Tile::getColor() {
     return this->color;
 }
+
+Coords Tile::getCoords() {
+    return this->coords;
+}
+
+/* Public Setters */
+void Tile::setCoords(Coords newCoords) {
+    this->coords = newCoords;
+};
+
+void Tile::setColor(Color color) {
+    this->color = color;
+}
