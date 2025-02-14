@@ -1,5 +1,3 @@
-#ifndef TILE_H
-#define TILE_H
 
 #define NUM_CONNECTED 6
 
@@ -34,5 +32,3 @@ class Tile {
         // You can add any private members or helper methods here
         std::string name;
 };
-
-#endif

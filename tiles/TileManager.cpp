@@ -2,7 +2,6 @@
 #include <algorithm>  // For std::remove_if
 #include <iostream>
 #include <cassert> 
-#include "Tile.hpp"
 #include <vector> 
 #include <functional>
 #include <cstdlib>

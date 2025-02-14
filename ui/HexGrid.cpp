@@ -65,7 +65,6 @@ void HexGrid::render(SDL_Renderer* renderer) {
     const float y_modifier = 2 - (1 - cRadius / 100);
     float x_off = 1;
 
-    //std::vector<float> temp_test {1, 2.75, 4.5, 6.25, 8};
 
     for (int c = 0; c < cols; c++) {
         
