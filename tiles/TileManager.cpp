@@ -60,7 +60,7 @@ Tile* TileManager::getTileByName(const std::string& tileName) const {\
 // }
 
 bool row_in_range(int x) {
-    if ((x > 0) || (x < ROWS)) {
+    if ((x >= 0) && (x < ROWS)) {
         return true;
     }
 
@@ -68,7 +68,7 @@ bool row_in_range(int x) {
 }
 
 bool col_in_range(int x) {
-    if ((x > 0) || (x < COLS)) {
+    if ((x >= 0) && (x < COLS)) {
         return true;
     }
 

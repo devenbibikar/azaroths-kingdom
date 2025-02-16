@@ -120,7 +120,8 @@ void HexGrid::rippleEffect(SDL_Renderer* renderer, Tile* tile) {
     render(renderer);
     
 
-    std::vector<Tile*> connectedTiles = tileManager->getConnectedTiles(tile);
+    /* BUGGED FUNCTION: SEGFAULT. */
+    std::vector<Tile*> connectedTiles = tileManager->getConnectedTiles(tile); 
 
     // std::this_thread::sleep_for(std::chrono::nanoseconds(10));
 
