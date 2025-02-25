@@ -58,14 +58,17 @@ int main(int argc, char* argv[]) {
             running = false;
         }
 
-        if (event.type == SDL_KEYDOWN) {
-            hexGrid.rippleEffect(renderer, tm.getTile(0, 0));
-        }
-
         if (event.type == SDL_KEYUP) {
 
             tm.getTile(0, 0)->setColor(GREEN);
             hexGrid.render(renderer);
+        }
+
+        if (event.type == SDL_KEYDOWN) {
+            hexGrid.rippleEffect(renderer, tm.getTile(0, 0));
+            // tm.getTile(0, 0)->setColor(RED);
+            // hexGrid.render(renderer);
+
         }
     }
 

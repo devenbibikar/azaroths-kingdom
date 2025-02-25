@@ -35,3 +35,10 @@ void Tile::setCoords(Coords newCoords) {
 void Tile::setColor(Color color) {
     this->color = color;
 }
+
+bool Tile::checkColor(Color color) {
+    return  (this->color.a == color.a) &&
+            (this->color.b == color.b) &&
+            (this->color.g == color.g) &&
+            (this->color.r == color.r); 
+}

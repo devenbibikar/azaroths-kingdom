@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include <set>
 #include "Tile.hpp"
 
 class TileManager {
@@ -28,6 +29,6 @@ class TileManager {
         Tile *getTopLeftItem(int r, int c);
         Tile *getBottomLeftItem(int r, int c);
         Tile *getBottomRightItem(int r, int c);
-        std::vector<Tile *> getConnectedTiles(Tile *tile);
+        std::set<Tile *> getConnectedTiles(Tile *tile);
         void generateRandomGrid();
 };

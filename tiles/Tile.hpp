@@ -27,8 +27,6 @@ class Tile {
 
         /* UI Information */
         Color color;
-        float x;
-        float y;
 
         /* Public Tile Information */
         Color getColor();
@@ -37,7 +35,8 @@ class Tile {
         /* Public Setters */
         void setCoords(Coords newCoords);
         void setColor(Color color);
-        
+        bool checkColor(Color color);
+
 
     private:
         // You can add any private members or helper methods here

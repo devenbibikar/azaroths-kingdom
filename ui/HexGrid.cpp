@@ -2,6 +2,7 @@
 #include "HexGrid.hpp"
 #include <cmath>
 #include <vector>
+#include <unordered_set>
 
 #include <chrono>
 #include <thread>
@@ -115,25 +116,38 @@ void HexGrid::updateDisplayedTileColor(SDL_Renderer* renderer, Tile* tile) {
     drawHexagon(renderer, tile->getCoords(), tile->getColor());
 }
 
-void HexGrid::rippleEffect(SDL_Renderer* renderer, Tile* tile) {
-    tile->setColor(RED);
-    render(renderer);
-    
+void HexGrid::rippleEffect(SDL_Renderer* renderer, Tile* unusedTile) {
 
-    /* BUGGED FUNCTION: SEGFAULT. */
-    std::vector<Tile*> connectedTiles = tileManager->getConnectedTiles(tile); 
+    std::unordered_set<std::pair<int, int>> old_items = {std::make_pair(0, 0)};
+    std::unordered_set<std::pair<int, int>> new_items;
 
-    // std::this_thread::sleep_for(std::chrono::nanoseconds(10));
+    int diag_len = std::min(ROWS, COLS);
 
-    // for (auto &tile : connectedTiles) {
+    // get coord to the right and bottom
+    for (auto item : old_items) {
+        new_items.insert(std::make_pair(item.first, item.second + 1));
+        new_items.insert(std::make_pair(item.first + 1, item.second));
+    }
 
-    //     if (tile) { 
-    //         rippleEffect(renderer, tile);
+
+
+    /* Unused Code : Loops forever through one column highlighting each item in red or blue */
+    // loop absolutely forever
+    // while (true) {
+
+
+    //     Tile* tile = tileManager->getTile(r, 0);
+
+    //     if (tile->checkColor(RED)) {
+    //         tile->setColor(BLUE);
+    //     } else {
+    //         tile->setColor(RED);
     //     }
-        
+    //     render(renderer);
+
+    //     std::this_thread::sleep_for(std::chrono::seconds(1));
+
+    //     r = (r + 1) % ROWS;
+
     // }
-
-    // std::this_thread::sleep_for(std::chrono::nanoseconds(10));
-
-
 }

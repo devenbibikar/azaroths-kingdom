@@ -10,7 +10,7 @@ public:
     void drawHexagon(SDL_Renderer* renderer, Coords tileCoords, const Color color);
     void setColor(SDL_Renderer* renderer, const Color color);
     void updateDisplayedTileColor(SDL_Renderer* renderer, Tile* tile);
-    void rippleEffect(SDL_Renderer* renderer, Tile* tile);
+    void rippleEffect(SDL_Renderer* renderer, Tile* unusedTile);
 
 private:
 

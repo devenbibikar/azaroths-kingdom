@@ -170,9 +170,9 @@ Tile* TileManager::getBottomRightItem(int r, int c) {
 }
 
 // helper function to push back
-void push_back_non_null(Tile* foundTile, std::vector<Tile*> tiles) {
+void push_back_non_null(Tile* foundTile, std::set<Tile*>* tiles) {
     if (foundTile) {
-        tiles.push_back(foundTile);
+        tiles->insert(foundTile);
     }
 }
 
@@ -185,30 +185,30 @@ void push_back_non_null(Tile* foundTile, std::vector<Tile*> tiles) {
     
     where * refers to a tile that is in usage
 */
-std::vector<Tile*> TileManager::getConnectedTiles(Tile* tile) {
+std::set<Tile*> TileManager::getConnectedTiles(Tile* tile) {
 
     // do some algorithm to determine using reverse or normal
     bool use_reverse = true; // Hard coded true for now
 
-    std::vector<Tile*> connectedTiles;
+    std::set<Tile*> connectedTiles;
     int tileRow = 0;
     int tileCol = 0; 
 
     // use the reverse pattern
     if (use_reverse) {
-        push_back_non_null(getTopItem(tileRow, tileCol), connectedTiles);
-        push_back_non_null(getBottomItem(tileRow, tileCol), connectedTiles);
-        push_back_non_null(getTopRightItem(tileRow, tileCol), connectedTiles);
-        push_back_non_null(getTopLeftItem(tileRow, tileCol), connectedTiles);
-        push_back_non_null(getLeftItem(tileRow, tileCol), connectedTiles);
-        push_back_non_null(getRightItem(tileRow, tileCol), connectedTiles);
+        push_back_non_null(getTopItem(tileRow, tileCol), &connectedTiles);
+        push_back_non_null(getBottomItem(tileRow, tileCol), &connectedTiles);
+        push_back_non_null(getTopRightItem(tileRow, tileCol), &connectedTiles);
+        push_back_non_null(getTopLeftItem(tileRow, tileCol), &connectedTiles);
+        push_back_non_null(getLeftItem(tileRow, tileCol), &connectedTiles);
+        push_back_non_null(getRightItem(tileRow, tileCol), &connectedTiles);
     } else {    // use the standard pattern
-        push_back_non_null(getTopItem(tileRow, tileCol), connectedTiles);
-        push_back_non_null(getBottomItem(tileRow, tileCol), connectedTiles);
-        push_back_non_null(getBottomRightItem(tileRow, tileCol), connectedTiles);
-        push_back_non_null(getBottomLeftItem(tileRow, tileCol), connectedTiles);
-        push_back_non_null(getLeftItem(tileRow, tileCol), connectedTiles);
-        push_back_non_null(getRightItem(tileRow, tileCol), connectedTiles);
+        push_back_non_null(getTopItem(tileRow, tileCol), &connectedTiles);
+        push_back_non_null(getBottomItem(tileRow, tileCol), &connectedTiles);
+        push_back_non_null(getBottomRightItem(tileRow, tileCol), &connectedTiles);
+        push_back_non_null(getBottomLeftItem(tileRow, tileCol), &connectedTiles);
+        push_back_non_null(getLeftItem(tileRow, tileCol), &connectedTiles);
+        push_back_non_null(getRightItem(tileRow, tileCol), &connectedTiles);
     }
 
     return connectedTiles;
