@@ -116,17 +116,52 @@ void HexGrid::updateDisplayedTileColor(SDL_Renderer* renderer, Tile* tile) {
     drawHexagon(renderer, tile->getCoords(), tile->getColor());
 }
 
+/* Generated Pair Hash*/
+struct pair_hash {
+    template <typename T1, typename T2>
+    std::size_t operator()(const std::pair<T1, T2>& p) const {
+        std::size_t h1 = std::hash<T1>{}(p.first);
+        std::size_t h2 = std::hash<T2>{}(p.second);
+        return h1 ^ (h2 << 1); // Combines the hashes
+    }
+};
+
 void HexGrid::rippleEffect(SDL_Renderer* renderer, Tile* unusedTile) {
 
-    std::unordered_set<std::pair<int, int>> old_items = {std::make_pair(0, 0)};
-    std::unordered_set<std::pair<int, int>> new_items;
+    std::unordered_set<std::pair<int, int>, pair_hash> old_items = {std::make_pair(0, 0)};
+    std::unordered_set<std::pair<int, int>, pair_hash> new_items = {};
 
-    int diag_len = std::min(ROWS, COLS);
+    const int ITERATIONS = 200;
 
-    // get coord to the right and bottom
-    for (auto item : old_items) {
-        new_items.insert(std::make_pair(item.first, item.second + 1));
-        new_items.insert(std::make_pair(item.first + 1, item.second));
+    for (int i = 0; i < ITERATIONS; i++) {
+        // get all new items
+        for (auto item : old_items) {
+            new_items.insert(std::make_pair(item.first, (item.second + 1) % COLS));
+            new_items.insert(std::make_pair((item.first + 1) % ROWS, item.second));
+        }
+
+        // set old items color to white
+        for (auto item : old_items) {
+            Tile* tile = tileManager->getTile(item.first, item.second);
+            tile->setColor(WHITE);
+        }
+
+        render(renderer);
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(250));
+
+        // set new items color to red
+        for (auto item : old_items) {
+            Tile* tile = tileManager->getTile(item.first, item.second);
+            tile->setColor(RED);
+        }
+
+        render(renderer);
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(250));
+
+        old_items.clear();
+        std::swap(old_items, new_items);
     }
 
 
