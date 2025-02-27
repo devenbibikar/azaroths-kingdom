@@ -3,27 +3,42 @@
 #include <iostream>
 #include <iterator>
 #include <vector>
- 
-#define NUM_CONNECT
+#include "Tile.hpp"
 
-class Tile {
+Tile::~Tile() {
+    // destroy something?
+}
 
-    public:     
-        ~Tile();
-        Tile(std::string name) {
-            std::fill_n(connectedTiles, NUM_CONNECTED, nullptr);
-            this->name = name;
-        };
-
-        const static int NUM_CONNECTED = 5;
-        Tile* connectedTiles[NUM_CONNECTED];
-        std::string name;
-
-        // return string name of object
-        const std::string& Tile::getName();
+Tile::Tile(std::string name, const Color color) {
+    this->name = name;
+    this->color = color;
 };
-
 
 const std::string& Tile::getName() {
     return name;
+}
+
+
+Color Tile::getColor() {
+    return this->color;
+}
+
+Coords Tile::getCoords() {
+    return this->coords;
+}
+
+/* Public Setters */
+void Tile::setCoords(Coords newCoords) {
+    this->coords = newCoords;
+};
+
+void Tile::setColor(Color color) {
+    this->color = color;
+}
+
+bool Tile::checkColor(Color color) {
+    return  (this->color.a == color.a) &&
+            (this->color.b == color.b) &&
+            (this->color.g == color.g) &&
+            (this->color.r == color.r); 
 }
